@@ -3,7 +3,11 @@ package ui;
 import java.awt.Color;
 import java.awt.EventQueue;
 import java.awt.Font;
+import java.text.DateFormat;
+import java.time.LocalDate;
+import java.util.Calendar;
 import java.util.Date;
+import java.util.Locale;
 import java.util.Properties;
 
 import javax.jms.Connection;
@@ -110,9 +114,12 @@ public class MessageReceive extends JFrame {
 							if (msg instanceof TextMessage) {
 								TextMessage tm = (TextMessage) msg;
 								String txt = tm.getText();
-								date = new Date();
-								date.getTime();
-								inputMessage.append(txt +"\t"+ date+ "\n");
+								Locale recievetime = new Locale("Vi","VN");
+								Calendar date = Calendar.getInstance();
+								DateFormat datef = DateFormat.getDateInstance(1, recievetime);
+//								date = new Date();
+//								date.getTime();
+								inputMessage.append(txt +"\t"+ datef.format(date.getTime())+ "\n");
 							
 //								System.out.println("Nhận được " + txt);
 								msg.acknowledge();// gửi tín hiệu ack
